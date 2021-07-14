@@ -161,7 +161,6 @@ type Server struct {
 	leafRemoteAccounts sync.Map
 
 	quitCh           chan struct{}
-	startupComplete  chan struct{}
 	shutdownComplete chan struct{}
 
 	// Tracking Go routines
@@ -441,10 +440,6 @@ func NewServer(opts *Options) (*Server, error) {
 	// Used to kick out all go routines possibly waiting on server
 	// to shutdown.
 	s.quitCh = make(chan struct{})
-
-	// Closed when startup is complete. ReadyForConnections() will block on
-	// this before checking the presence of listening sockets.
-	s.startupComplete = make(chan struct{})
 
 	// Closed when Shutdown() is complete. Allows WaitForShutdown() to block
 	// waiting for complete shutdown.
@@ -1714,9 +1709,6 @@ func (s *Server) Start() {
 		s.logPorts()
 	}
 
-	// We've finished starting up.
-	close(s.startupComplete)
-
 	// Wait for clients.
 	if !opts.DontListen {
 		s.AcceptLoop(clientListenReady)
@@ -2762,19 +2754,6 @@ func (s *Server) ProfilerAddr() *net.TCPAddr {
 }
 
 func (s *Server) readyForConnections(d time.Duration) error {
-	end := time.Now().Add(d)
-
-	// Wait for startup. At this point AcceptLoop will only just be
-	// starting, so we'll still check for the presence of listeners
-	// after this.
-	select {
-	case <-s.startupComplete:
-	case <-time.After(d):
-		return fmt.Errorf(
-			"failed to be ready for connections after %s", d,
-		)
-	}
-
 	// Snapshot server options.
 	opts := s.getOpts()
 
@@ -2784,6 +2763,7 @@ func (s *Server) readyForConnections(d time.Duration) error {
 	}
 	chk := make(map[string]info)
 
+	end := time.Now().Add(d)
 	for time.Now().Before(end) {
 		s.mu.Lock()
 		chk["server"] = info{ok: s.listener != nil || opts.DontListen, err: s.listenerErr}
