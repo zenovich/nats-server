@@ -146,6 +146,8 @@ var (
 	ErrInvalidJSAck                 = errors.New("nats: invalid jetstream publish response")
 	ErrMultiStreamUnsupported       = errors.New("nats: multiple streams are not supported")
 	ErrStreamNameRequired           = errors.New("nats: stream name is required")
+	ErrStreamNotFound               = errors.New("nats: stream not found")
+	ErrConsumerNotFound             = errors.New("nats: consumer not found")
 	ErrConsumerNameRequired         = errors.New("nats: consumer name is required")
 	ErrConsumerConfigRequired       = errors.New("nats: consumer configuration is required")
 	ErrStreamSnapshotConfigRequired = errors.New("nats: stream snapshot configuration is required")
@@ -3120,10 +3122,7 @@ func decodeHeadersMsg(data []byte) (Header, error) {
 //
 // https://golang.org/pkg/net/textproto/#Reader.ReadMIMEHeader
 func readMIMEHeader(tp *textproto.Reader) (textproto.MIMEHeader, error) {
-	var (
-		m    = make(textproto.MIMEHeader)
-		strs []string
-	)
+	m := make(textproto.MIMEHeader)
 	for {
 		kv, err := tp.ReadLine()
 		if len(kv) == 0 {
@@ -3145,16 +3144,7 @@ func readMIMEHeader(tp *textproto.Reader) (textproto.MIMEHeader, error) {
 			i++
 		}
 		value := string(kv[i:])
-		vv := m[key]
-		if vv == nil && len(strs) > 0 {
-			// Single value header.
-			vv, strs = strs[:1:1], strs[1:]
-			vv[0] = value
-			m[key] = vv
-		} else {
-			// Multi value header.
-			m[key] = append(vv, value)
-		}
+		m[key] = append(m[key], value)
 		if err != nil {
 			return m, err
 		}

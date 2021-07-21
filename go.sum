@@ -232,6 +232,7 @@ github.com/nats-io/jwt v1.2.2 h1:w3GMTO969dFg+UOKTmmyuu7IGdusK+7Ytlt//OYH/uU=
 github.com/nats-io/jwt v1.2.2/go.mod h1:/xX356yQA6LuXI9xWW7mZNpxgF2mBmGecH+Fj34sP5Q=
 github.com/nats-io/jwt/v2 v2.0.2 h1:ejVCLO8gu6/4bOKIHQpmB5UhhUJfAQw55yvLWpfmKjI=
 github.com/nats-io/jwt/v2 v2.0.2/go.mod h1:VRP+deawSXyhNjXmxPCHskrR6Mq50BqpEI5SEcNiGlY=
+github.com/nats-io/nats-server/v2 v2.3.2/go.mod h1:dUf7Cm5z5LbciFVwWx54owyCKm8x4/hL6p7rrljhLFY=
 github.com/nats-io/nats.go v1.11.1-0.20210623165838-4b75fc59ae30 h1:9GqilBhZaR3xYis0JgMlJjNw933WIobdjKhilXm+Vls=
 github.com/nats-io/nats.go v1.11.1-0.20210623165838-4b75fc59ae30/go.mod h1:BPko4oXsySz4aSWeFgOHLZs3G4Jq4ZAyE6/zMCxRT6w=
 github.com/nats-io/nkeys v0.2.0/go.mod h1:XdZpAbhgyyODYqjTawOnIOI7VlbKSarI9Gfy1tqEu/s=
@@ -311,6 +312,8 @@ github.com/zenovich/jwt/v2 v2.0.3-0.20210721002512-4f87e09454aa h1:TyZ+wcJUHWQIa
 github.com/zenovich/jwt/v2 v2.0.3-0.20210721002512-4f87e09454aa/go.mod h1:VRP+deawSXyhNjXmxPCHskrR6Mq50BqpEI5SEcNiGlY=
 github.com/zenovich/jwt/v2 v2.0.3-0.20210721015402-a4143f233842 h1:NFani/Y3fRJfbt+AbOUXlWnJqq8680lN4qsoXClnges=
 github.com/zenovich/jwt/v2 v2.0.3-0.20210721015402-a4143f233842/go.mod h1:RU36EftyHKYr2rgicI7nnUqEwwv26VwcrFZukcxHnMg=
+github.com/zenovich/nats.go v1.11.1-0.20210721123537-d132d67e3dd0 h1:1wFbeGxQNMvAWGx2GCFyxDNW+DyWZkJ9KmLf2ehSGgM=
+github.com/zenovich/nats.go v1.11.1-0.20210721123537-d132d67e3dd0/go.mod h1:hl2W+v4dM0twjH9GO2T5qaWbPqYkHkAej0xawM8zLAI=
 github.com/zenovich/nkeys v0.3.0/go.mod h1:gvUNGjVcM2IPr5rCsRsC6Wb3Hr2CQAm08dsxtV6A5y4=
 github.com/zenovich/nkeys v0.3.1-0.20210720152000-e38d52503ef6 h1:sgkmw1VmDeDTC76ZjrsUQLJntTBdbZaG85rMa/hB2NI=
 github.com/zenovich/nkeys v0.3.1-0.20210720152000-e38d52503ef6/go.mod h1:CxgDmUbkPMZj46m6BWjFy+IUhBWUO182dxkkuL8m5AI=

@@ -6,6 +6,8 @@ replace github.com/nats-io/nkeys v0.3.0 => github.com/zenovich/nkeys v0.3.1-0.20
 
 replace github.com/nats-io/jwt/v2 v2.0.2 => github.com/zenovich/jwt/v2 v2.0.3-0.20210721015402-a4143f233842
 
+replace github.com/nats-io/nats.go v1.11.1-0.20210623165838-4b75fc59ae30 => github.com/zenovich/nats.go v1.11.1-0.20210721123537-d132d67e3dd0
+
 require (
 	github.com/klauspost/compress v1.11.12
 	github.com/minio/highwayhash v1.0.1
