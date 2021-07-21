@@ -876,8 +876,8 @@ func TestNkeyUsersConfig(t *testing.T) {
 	confFileName := createConfFile(t, []byte(`
     authorization {
       users = [
-        {nkey: "UDKTV7HZVYJFJN64LLMYQBUR6MTNNYCDC3LAZH4VHURW3GZLL3FULBXV"}
-        {nkey: "UA3C5TBZYK5GJQJRWPMU6NFY5JNAEVQB2V2TUZFZDHFJFUYVKTTUOFKZ"}
+        {nkey: "9023c14e69be377e5a74d10c72486a213e726ea51c32939244bac9d7c974f142ba4bb77"}
+        {nkey: "902cfb6613220af802636d26abe6a02029beac121403f17fa32b3f8fd83fa29a3e324d2"}
       ]
     }`))
 	defer removeFile(t, confFileName)
@@ -992,8 +992,8 @@ func TestNkeyUsersDefaultPermissionsConfig(t *testing.T) {
 					subscribe = "bar"
 				}
 			}
-			{ nkey: "UDKTV7HZVYJFJN64LLMYQBUR6MTNNYCDC3LAZH4VHURW3GZLL3FULBXV" }
-			{ nkey: "UA3C5TBZYK5GJQJRWPMU6NFY5JNAEVQB2V2TUZFZDHFJFUYVKTTUOFKZ",
+			{ nkey: "9023c14e69be377e5a74d10c72486a213e726ea51c32939244bac9d7c974f142ba4bb77" }
+			{ nkey: "902cfb6613220af802636d26abe6a02029beac121403f17fa32b3f8fd83fa29a3e324d2",
 				permissions = {
 					subscribe = "bar"
 				}
@@ -1012,8 +1012,8 @@ func TestNkeyUsersDefaultPermissionsConfig(t *testing.T) {
 						subscribe = "bar"
 					}
 				}
-				{ nkey: "UC4YEYJHYKTU4LHROX7UEKEIO5RP5OUWDYXELHWXZOQHZYXHUD44LCRS" }
-				{ nkey: "UDLSDF4UY3YW7JJQCYE6T2D4KFDCH6RGF3R65KHK247G3POJPI27VMQ3",
+				{ nkey: "903a77df505e278d4ed2f6db0d822bd9a591fed520f96199905923d44e255d58aa0305b" }
+				{ nkey: "903bab93da2e97d3e241a4b2989dd2fb9eb19ffafbf0ddf63808dbaecc33d4716ad17f7",
 					permissions = {
 						subscribe = "bar"
 					}
@@ -1076,9 +1076,9 @@ func TestNkeyUsersDefaultPermissionsConfig(t *testing.T) {
 	if lu := len(opts.Nkeys); lu != 4 {
 		t.Fatalf("Expected 4 nkey users, got %d", lu)
 	}
-	foundNk := findNkeyUsers("UDK", "UA3")
+	foundNk := findNkeyUsers("9023", "902c")
 	checkPerms(foundNk[0].Permissions, foundNk[1].Permissions)
-	foundNk = findNkeyUsers("UC4", "UDL")
+	foundNk = findNkeyUsers("903a", "903b")
 	checkPerms(foundNk[0].Permissions, foundNk[1].Permissions)
 }
 
@@ -1086,7 +1086,7 @@ func TestNkeyUsersWithPermsConfig(t *testing.T) {
 	confFileName := createConfFile(t, []byte(`
     authorization {
       users = [
-        {nkey: "UDKTV7HZVYJFJN64LLMYQBUR6MTNNYCDC3LAZH4VHURW3GZLL3FULBXV",
+        {nkey: "903ff9769c8b74d01337278aa7fdfeeb27189cc5adff30feec7249086bb4667a10c2259",
          permissions = {
            publish = "$SYS.>"
            subscribe = { deny = ["foo", "bar", "baz"] }
@@ -1131,7 +1131,7 @@ func TestBadNkeyConfig(t *testing.T) {
 	defer removeFile(t, confFileName)
 	content := `
     authorization {
-      users = [ {nkey: "Ufoo"}]
+      users = [ {nkey: "9foo"}]
     }`
 	if err := ioutil.WriteFile(confFileName, []byte(content), 0666); err != nil {
 		t.Fatalf("Error writing config file: %v", err)
@@ -1147,7 +1147,7 @@ func TestNkeyWithPassConfig(t *testing.T) {
 	content := `
     authorization {
       users = [
-        {nkey: "UDKTV7HZVYJFJN64LLMYQBUR6MTNNYCDC3LAZH4VHURW3GZLL3FULBXV", pass: "foo"}
+        {nkey: "902dbd6a07c60d5850b1d095a3597dbd940ef8b89968f3bd10d9d77c26cbe845fbfac0d", pass: "foo"}
       ]
     }`
 	if err := ioutil.WriteFile(confFileName, []byte(content), 0666); err != nil {
@@ -2043,14 +2043,14 @@ func TestAccountUsersLoadedProperly(t *testing.T) {
 	authorization {
 		users [
 			{user: ivan, password: bar}
-			{nkey : UC6NLCN7AS34YOJVCYD4PJ3QB7QGLYG5B5IMBT25VW5K4TNUJODM7BOX}
+			{nkey : "9032c7d2c925d4ca7de1f08f0ba4ab62fc55aea83025a6537f2ebaf673f70410e7529f3"}
 		]
 	}
 	accounts {
 		synadia {
 			users [
 				{user: derek, password: foo}
-				{nkey : UBAAQWTW6CG2G6ANGNKB5U2B7HRWHSGMZEZX3AQSAJOQDAUGJD46LD2E}
+				{nkey : "90315e33553e70eb393a28c1982af918be2bdd6f92b26698bd007872cb3ed32f83d7e70"}
 			]
 		}
 	}
@@ -2653,10 +2653,10 @@ func TestSublistNoCacheConfigOnAccounts(t *testing.T) {
 
 	  accounts {
 		synadia {
-			users [ {nkey : UBAAQWTW6CG2G6ANGNKB5U2B7HRWHSGMZEZX3AQSAJOQDAUGJD46LD2E} ]
+			users [ {nkey : "9036017034ac151c5693c8e1be7a531c05a7da78fdfe48ae2e69c698ca95cf837fd5266"} ]
 		}
 		nats.io {
-			users [ {nkey : UC6NLCN7AS34YOJVCYD4PJ3QB7QGLYG5B5IMBT25VW5K4TNUJODM7BOX} ]
+			users [ {nkey : "902754578a557bd294689d857c5fae38c7392862187c147998ca583161c0dad2b37fb4e"} ]
 		}
 	  }
 	  no_sys_acc = true
@@ -2886,7 +2886,7 @@ func TestNoAuthUserCode(t *testing.T) {
 			synadia {
 				users [
 					{user: "a", password: "a"},
-					{nkey : UBAAQWTW6CG2G6ANGNKB5U2B7HRWHSGMZEZX3AQSAJOQDAUGJD46LD2E},
+					{nkey : "90281b5a602a1073868ab4933ed4083dbbe29d5a9c836edc2345b119d4eb26d995f300e"},
 				]
 			}
 			acc {
@@ -2924,7 +2924,7 @@ func TestNoAuthUserCode(t *testing.T) {
 		})
 	}
 
-	for _, badUser := range []string{"notthere", "UBAAQWTW6CG2G6ANGNKB5U2B7HRWHSGMZEZX3AQSAJOQDAUGJD46LD2E"} {
+	for _, badUser := range []string{"notthere", "90281b5a602a1073868ab4933ed4083dbbe29d5a9c836edc2345b119d4eb26d995f300e"} {
 		t.Run(badUser, func(t *testing.T) {
 			os.Setenv("NO_AUTH_USER", badUser)
 			opts, err := ProcessConfigFile(confFileName)
@@ -2947,7 +2947,7 @@ func TestNoAuthUserCode(t *testing.T) {
 
 const operatorJwtWithSysAccAndUrlResolver = `
 	listen: "127.0.0.1:-1"
-	operator: eyJ0eXAiOiJqd3QiLCJhbGciOiJlZDI1NTE5In0.eyJqdGkiOiJJVEdJNjNCUUszM1VNN1pBSzZWT1RXNUZEU01ESlNQU1pRQ0RMNUlLUzZQTVhBU0ROQ01RIiwiaWF0IjoxNTg5ODM5MjA1LCJpc3MiOiJPQ1k2REUyRVRTTjNVT0RGVFlFWEJaTFFMSTdYNEdTWFI1NE5aQzRCQkxJNlFDVFpVVDY1T0lWTiIsIm5hbWUiOiJPUCIsInN1YiI6Ik9DWTZERTJFVFNOM1VPREZUWUVYQlpMUUxJN1g0R1NYUjU0TlpDNEJCTEk2UUNUWlVUNjVPSVZOIiwidHlwZSI6Im9wZXJhdG9yIiwibmF0cyI6eyJhY2NvdW50X3NlcnZlcl91cmwiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvand0L3YxIiwib3BlcmF0b3Jfc2VydmljZV91cmxzIjpbIm5hdHM6Ly9sb2NhbGhvc3Q6NDIyMiJdLCJzeXN0ZW1fYWNjb3VudCI6IkFEWjU0N0IyNFdIUExXT0s3VE1MTkJTQTdGUUZYUjZVTTJOWjRISE5JQjdSREZWWlFGT1o0R1FRIn19.3u710KqMLwgXwsMvhxfEp9xzK84XyAZ-4dd6QY0T6hGj8Bw9mS-HcQ7HbvDDNU01S61tNFfpma_JR6LtB3ixBg
+	operator: eyJ0eXAiOiJqd3QiLCJhbGciOiJzZWNwMjU2azEifQ.eyJpYXQiOjE1ODk4MzkyMDUsImlzcyI6IjAwM2ViZTQ4NWI3NDY2MDJlZGQ3YzVhZGI0ZmViYWIzNGI3YzFjMWE4ZWFhZDdmYzBjN2JiYzc4NTI4NzMxNTA4YzFlODk3IiwianRpIjoiSVRHSTYzQlFLMzNVTTdaQUs2Vk9UVzVGRFNNREpTUFNaUUNETDVJS1M2UE1YQVNETkNNUSIsIm5hbWUiOiJPUCIsIm5hdHMiOnsiYWNjb3VudF9zZXJ2ZXJfdXJsIjoiaHR0cDovL2xvY2FsaG9zdDo4MDAwL2p3dC92MSIsIm9wZXJhdG9yX3NlcnZpY2VfdXJscyI6WyJuYXRzOi8vbG9jYWxob3N0OjQyMjIiXSwic3lzdGVtX2FjY291bnQiOiJhMDNlZmMzNTAzNTMwZTM5ZjkzYjkxMjY5ZWVmYzliN2YwMWYwMDVhZTI3MGI1ZmQ1ZmQ5ZDQxZWU0ODRmYTNlZjgwNmIyOCJ9LCJzdWIiOiIwMDNlYmU0ODViNzQ2NjAyZWRkN2M1YWRiNGZlYmFiMzRiN2MxYzFhOGVhYWQ3ZmMwYzdiYmM3ODUyODczMTUwOGMxZTg5NyIsInR5cGUiOiJvcGVyYXRvciJ9.iXs8-dgsOGEAi0Kk_Qd1aSk-nerwnYG5HqDYQADYcThUn5cd0vxYMltvBJgcSmdzteJAvabubGRorzH9LrjH4A
 `
 
 func TestReadOperatorJWT(t *testing.T) {
@@ -2957,7 +2957,7 @@ func TestReadOperatorJWT(t *testing.T) {
 	if err != nil {
 		t.Fatalf("Received unexpected error %s", err)
 	}
-	if opts.SystemAccount != "ADZ547B24WHPLWOK7TMLNBSA7FQFXR6UM2NZ4HHNIB7RDFVZQFOZ4GQQ" {
+	if opts.SystemAccount != "a03efc3503530e39f93b91269eefc9b7f01f005ae270b5fd5fd9d41ee484fa3ef806b28" {
 		t.Fatalf("Expected different SystemAccount: %s", opts.SystemAccount)
 	}
 	if r, ok := opts.AccountResolver.(*URLAccResolver); !ok {
@@ -2971,17 +2971,17 @@ func TestReadOperatorJWT(t *testing.T) {
 const operatorJwtWithSysAccAndMemResolver = `
 	listen: "127.0.0.1:-1"
 	// Operator "TESTOP"
-	operator: eyJ0eXAiOiJqd3QiLCJhbGciOiJlZDI1NTE5In0.eyJqdGkiOiJLRTZRU0tWTU1VWFFKNFZCTDNSNDdGRFlIWElaTDRZSE1INjVIT0k1UjZCNUpPUkxVQlZBIiwiaWF0IjoxNTg5OTE2MzgyLCJpc3MiOiJPQVRUVkJYTElVTVRRT1FXVUEySU0zRkdUQlFRSEFHUEZaQTVET05NTlFSUlRQUjYzTERBTDM1WiIsIm5hbWUiOiJURVNUT1AiLCJzdWIiOiJPQVRUVkJYTElVTVRRT1FXVUEySU0zRkdUQlFRSEFHUEZaQTVET05NTlFSUlRQUjYzTERBTDM1WiIsInR5cGUiOiJvcGVyYXRvciIsIm5hdHMiOnsic3lzdGVtX2FjY291bnQiOiJBRFNQT1lNSFhKTjZKVllRQ0xSWjVYUTVJVU42QTNTMzNYQTROVjRWSDc0NDIzVTdVN1lSNFlWVyJ9fQ.HiyUtlk8kectKHeQHtuqFcjFt0RbYZE_WAqPCcoWlV2IFVdXuOTzShYEMgDmtgvsFG_zxNQOj08Gr6a06ovwBA
+	operator: eyJ0eXAiOiJqd3QiLCJhbGciOiJzZWNwMjU2azEifQ.eyJpYXQiOjE1ODk5MTYzODIsImlzcyI6IjAwMjIyMzhkYmM2NjFmMWIzZGExNzczMzc2N2E5OWMyYmUzZGRmOGM3MmQ3OTYwNDc0OTc2N2I5ZjZlYTg4YmQzMDk5ZGMyIiwianRpIjoiS0U2UVNLVk1NVVhRSjRWQkwzUjQ3RkRZSFhJWkw0WUhNSDY1SE9JNVI2QjVKT1JMVUJWQSIsIm5hbWUiOiJURVNUT1AiLCJuYXRzIjp7InN5c3RlbV9hY2NvdW50IjoiYTAyN2Q0M2Y0MWI5NjRlYmQ1NzE0MmM2MjNlNDEzYjgxNGI3NjczYmY2OGM2OTgyZTI0NTM0MWNhNTI0NzhiMTE4YTBhODQifSwic3ViIjoiMDAyMjIzOGRiYzY2MWYxYjNkYTE3NzMzNzY3YTk5YzJiZTNkZGY4YzcyZDc5NjA0NzQ5NzY3YjlmNmVhODhiZDMwOTlkYzIiLCJ0eXBlIjoib3BlcmF0b3IifQ.WeChQQHxC6mA3uH_BzAHOfw9DcT_Paiz_R9044TA97Qck-4kZXCeuwLi3RJm8G44Oooy86GZVKki0IXQXEzikQ
 	resolver: MEMORY
 	resolver_preload: {
-  		// Account "TESTSYS"
-  		ADSPOYMHXJN6JVYQCLRZ5XQ5IUN6A3S33XA4NV4VH74423U7U7YR4YVW: eyJ0eXAiOiJqd3QiLCJhbGciOiJlZDI1NTE5In0.eyJqdGkiOiI2WEtYUFZNTjdEVFlBSUE0R1JDWUxXUElSM1ZEM1Q2UVk2RFg3NURHTVFVWkdVWTJSRFNRIiwiaWF0IjoxNTg5OTE2MzIzLCJpc3MiOiJPQVRUVkJYTElVTVRRT1FXVUEySU0zRkdUQlFRSEFHUEZaQTVET05NTlFSUlRQUjYzTERBTDM1WiIsIm5hbWUiOiJURVNUU1lTIiwic3ViIjoiQURTUE9ZTUhYSk42SlZZUUNMUlo1WFE1SVVONkEzUzMzWEE0TlY0Vkg3NDQyM1U3VTdZUjRZVlciLCJ0eXBlIjoiYWNjb3VudCIsIm5hdHMiOnsibGltaXRzIjp7InN1YnMiOi0xLCJjb25uIjotMSwibGVhZiI6LTEsImltcG9ydHMiOi0xLCJleHBvcnRzIjotMSwiZGF0YSI6LTEsInBheWxvYWQiOi0xLCJ3aWxkY2FyZHMiOnRydWV9fX0.vhtWanIrOncdNfg-yO-7L61ccc-yRacvVtEsaIgWBEmW4czlEPhsiF1MkUKG91rtgcbwUf73ZIFEfja5MgFBAQ
+		// Account "TESTSYS"
+		a027d43f41b964ebd57142c623e413b814b7673bf68c6982e245341ca52478b118a0a84: eyJ0eXAiOiJqd3QiLCJhbGciOiJzZWNwMjU2azEifQ.eyJpYXQiOjE1ODk5MTYzMjMsImlzcyI6IjAwMjIyMzhkYmM2NjFmMWIzZGExNzczMzc2N2E5OWMyYmUzZGRmOGM3MmQ3OTYwNDc0OTc2N2I5ZjZlYTg4YmQzMDk5ZGMyIiwianRpIjoiNlhLWFBWTU43RFRZQUlBNEdSQ1lMV1BJUjNWRDNUNlFZNkRYNzVER01RVVpHVVkyUkRTUSIsIm5hbWUiOiJURVNUU1lTIiwibmF0cyI6eyJsaW1pdHMiOnsiY29ubiI6LTEsImRhdGEiOi0xLCJleHBvcnRzIjotMSwiaW1wb3J0cyI6LTEsImxlYWYiOi0xLCJwYXlsb2FkIjotMSwic3VicyI6LTEsIndpbGRjYXJkcyI6dHJ1ZX19LCJzdWIiOiJhMDI3ZDQzZjQxYjk2NGViZDU3MTQyYzYyM2U0MTNiODE0Yjc2NzNiZjY4YzY5ODJlMjQ1MzQxY2E1MjQ3OGIxMThhMGE4NCIsInR5cGUiOiJhY2NvdW50In0.nbXTVb48R4EhejgXB9YOFuqRXDch4wrMoSEHH7c39iAyIl0L7dzee8iyXTdVRfrIYwvX9DNRqat1bXw9KpRdlg
 	}
 `
 
 func TestReadOperatorJWTSystemAccountMatch(t *testing.T) {
 	confFileName := createConfFile(t, []byte(operatorJwtWithSysAccAndMemResolver+`
-		system_account: ADSPOYMHXJN6JVYQCLRZ5XQ5IUN6A3S33XA4NV4VH74423U7U7YR4YVW
+		system_account: a027d43f41b964ebd57142c623e413b814b7673bf68c6982e245341ca52478b118a0a84
 	`))
 	defer removeFile(t, confFileName)
 	opts, err := ProcessConfigFile(confFileName)
@@ -2997,7 +2997,7 @@ func TestReadOperatorJWTSystemAccountMatch(t *testing.T) {
 
 func TestReadOperatorJWTSystemAccountMismatch(t *testing.T) {
 	confFileName := createConfFile(t, []byte(operatorJwtWithSysAccAndMemResolver+`
-		system_account: ADXJJCDCSRSMCOV25FXQW7R4QOG7R763TVEXBNWJHLBMBGWOJYG5XZBG
+		system_account: a023fdf2ae88f8734839ba409ec3aaa0c2f89ecb39d1ffcd5544217607a18d04e0e2688
 	`))
 	defer removeFile(t, confFileName)
 	opts, err := ProcessConfigFile(confFileName)

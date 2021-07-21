@@ -33,9 +33,10 @@ func ParseDecoratedNKey(contents []byte) (KeyPair, error) {
 	} else {
 		lines := bytes.Split(contents, []byte("\n"))
 		for _, line := range lines {
-			if bytes.HasPrefix(bytes.TrimSpace(line), []byte("SO")) ||
-				bytes.HasPrefix(bytes.TrimSpace(line), []byte("SA")) ||
-				bytes.HasPrefix(bytes.TrimSpace(line), []byte("SU")) {
+			trimmed := bytes.TrimSpace(line)
+			if bytes.HasPrefix(trimmed, []byte("50")) ||
+				bytes.HasPrefix(trimmed, []byte("5a")) ||
+				bytes.HasPrefix(trimmed, []byte("59")) {
 				seed = line
 				break
 			}
@@ -44,9 +45,9 @@ func ParseDecoratedNKey(contents []byte) (KeyPair, error) {
 	if seed == nil {
 		return nil, errors.New("no nkey seed found")
 	}
-	if !bytes.HasPrefix(seed, []byte("SO")) &&
-		!bytes.HasPrefix(seed, []byte("SA")) &&
-		!bytes.HasPrefix(seed, []byte("SU")) {
+	if !bytes.HasPrefix(seed, []byte("50")) &&
+		!bytes.HasPrefix(seed, []byte("5a")) &&
+		!bytes.HasPrefix(seed, []byte("59")) {
 		return nil, errors.New("doesn't contain a seed nkey")
 	}
 	kp, err := FromSeed(seed)
@@ -67,7 +68,7 @@ func ParseDecoratedUserNKey(contents []byte) (KeyPair, error) {
 	if err != nil {
 		return nil, err
 	}
-	if !bytes.HasPrefix(seed, []byte("SU")) {
+	if !bytes.HasPrefix(seed, []byte("59")) {
 		return nil, errors.New("doesn't contain an user seed nkey")
 	}
 	kp, err := FromSeed(seed)

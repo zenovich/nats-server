@@ -11,7 +11,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Package nkeys is an Ed25519 based public-key signature system that simplifies keys and seeds
+// Package nkeys is an secp256k1-based public-key signature system that simplifies keys and seeds
 // and performs signing and verification.
 package nkeys
 
@@ -77,11 +77,11 @@ func FromPublicKey(public string) (KeyPair, error) {
 	if err != nil {
 		return nil, err
 	}
-	pre := PrefixByte(raw[0])
+	pre := PrefixByte(public[0])
 	if err := checkValidPublicPrefixByte(pre); err != nil {
 		return nil, ErrInvalidPublicKey
 	}
-	return &pub{pre, raw[1:]}, nil
+	return &pub{pre, raw[:]}, nil
 }
 
 // FromSeed will create a KeyPair capable of signing and verifying signatures.

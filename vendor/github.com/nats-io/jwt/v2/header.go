@@ -33,7 +33,7 @@ const (
 
 	// AlgorithmNkey is the algorithm supported by JWT tokens
 	// encoded and decoded by this library
-	AlgorithmNkeyOld = "ed25519"
+	AlgorithmNkeyOld = "secp256k1"
 	AlgorithmNkey    = AlgorithmNkeyOld + "-nkey"
 )
 

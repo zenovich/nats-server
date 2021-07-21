@@ -15,11 +15,17 @@ package nkeys
 
 import (
 	"bytes"
+	"crypto/ecdsa"
 	"crypto/rand"
 	"io"
 
-	"golang.org/x/crypto/ed25519"
+	"github.com/ethereum/go-ethereum/crypto"
+	"github.com/ethereum/go-ethereum/crypto/secp256k1"
 )
+
+const seedLength = 40 // see ecdsa.randFieldElement() which needs 40 random bytes to generate
+                      // a number of the field underlying the given curve
+                      // using the procedure given in [NSA] A.2.1.
 
 // kp is the internal struct for a kepypair using seed.
 type kp struct {
@@ -28,7 +34,7 @@ type kp struct {
 
 // CreatePair will create a KeyPair based on the rand entropy and a type/prefix byte. rand can be nil.
 func CreatePair(prefix PrefixByte) (KeyPair, error) {
-	var rawSeed [32]byte
+	var rawSeed [seedLength]byte
 
 	_, err := io.ReadFull(rand.Reader, rawSeed[:])
 	if err != nil {
@@ -42,19 +48,27 @@ func CreatePair(prefix PrefixByte) (KeyPair, error) {
 	return &kp{seed}, nil
 }
 
-// rawSeed will return the raw, decoded 64 byte seed.
+// rawSeed will return the raw, decoded 40-byte seed.
 func (pair *kp) rawSeed() ([]byte, error) {
 	_, raw, err := DecodeSeed(pair.seed)
 	return raw, err
 }
 
-// keys will return a 32 byte public key and a 64 byte private key utilizing the seed.
-func (pair *kp) keys() (ed25519.PublicKey, ed25519.PrivateKey, error) {
+// keys will return a 33-byte compressed public key and a 32-byte private key utilizing the seed.
+func (pair *kp) keys() (publicKey []byte, privateKey []byte, err error) {
 	raw, err := pair.rawSeed()
 	if err != nil {
 		return nil, nil, err
 	}
-	return ed25519.GenerateKey(bytes.NewReader(raw))
+	generatedKey, err := ecdsa.GenerateKey(secp256k1.S256(), bytes.NewReader(raw))
+	if err != nil {
+		return nil, nil, err
+	}
+	publicKey = secp256k1.CompressPubkey(generatedKey.PublicKey.X, generatedKey.PublicKey.Y)
+	privateKey = make([]byte, 32)
+	blob := generatedKey.D.Bytes()
+	copy(privateKey[32-len(blob):], blob)
+	return publicKey, privateKey, err
 }
 
 // Wipe will randomize the contents of the seed key
@@ -75,11 +89,11 @@ func (pair *kp) PublicKey() (string, error) {
 	if err != nil {
 		return "", err
 	}
-	pub, _, err := ed25519.GenerateKey(bytes.NewReader(raw))
+	private, err := ecdsa.GenerateKey(secp256k1.S256(), bytes.NewReader(raw))
 	if err != nil {
 		return "", err
 	}
-	pk, err := Encode(public, pub)
+	pk, err := Encode(public, secp256k1.CompressPubkey(private.PublicKey.X, private.PublicKey.Y))
 	if err != nil {
 		return "", err
 	}
@@ -101,16 +115,23 @@ func (pair *kp) Sign(input []byte) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return ed25519.Sign(priv, input), nil
+	sign, err := secp256k1.Sign(crypto.Keccak256(input), priv)
+	if err != nil {
+		return nil, err
+	}
+	return sign[:64], nil
 }
 
 // Verify will verify the input against a signature utilizing the public key.
 func (pair *kp) Verify(input []byte, sig []byte) error {
+	if len(sig) != 64 {
+		return ErrInvalidSignature
+	}
 	pub, _, err := pair.keys()
 	if err != nil {
 		return err
 	}
-	if !ed25519.Verify(pub, input, sig) {
+	if !secp256k1.VerifySignature(pub, crypto.Keccak256(input), sig) {
 		return ErrInvalidSignature
 	}
 	return nil

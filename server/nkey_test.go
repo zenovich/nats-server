@@ -35,7 +35,7 @@ type nonceInfo struct {
 }
 
 // This is a seed for a user. We can extract public and private keys from this for testing.
-var seed = []byte("SUAKYRHVIOREXV7EUZTBHUHL7NUMHPMAS7QMDU3GTIUWEI5LDNOXD43IZY")
+var seed = []byte("5980acd2f038f5b449fb28367d28c01fe0dec4881b0f69fef9561383380c4ead2fbe861179eb233248433a")
 
 func nkeyBasicSetup() (*Server, *testAsyncClient, *bufio.Reader, string) {
 	kp, _ := nkeys.FromSeed(seed)
@@ -208,7 +208,7 @@ func TestMixedClientConfig(t *testing.T) {
 	confFileName := createConfFile(t, []byte(`
     authorization {
       users = [
-        {nkey: "UDKTV7HZVYJFJN64LLMYQBUR6MTNNYCDC3LAZH4VHURW3GZLL3FULBXV"}
+        {nkey: "9023c14e69be377e5a74d10c72486a213e726ea51c32939244bac9d7c974f142ba4bb77"}
         {user: alice, password: foo}
       ]
     }`))

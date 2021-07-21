@@ -608,7 +608,7 @@ func TestAccountParseConfigImportsExports(t *testing.T) {
 	if natsAcc == nil {
 		t.Fatalf("Error retrieving account for 'nats.io'")
 	}
-	if natsAcc.Nkey != "AB5UKNPVHDWBP5WODG742274I3OGY5FM3CBIFCYI4OFEH7Y23GNZPXFE" {
+	if natsAcc.Nkey != "a03d8f094a1173299a466ffe591ee9aa8bb3c81653fa73951d0bc550d7a9787ef027d04" {
 		t.Fatalf("Expected nats account to have an nkey, got %q\n", natsAcc.Nkey)
 	}
 	// Check user assigned to the correct account.
@@ -2125,21 +2125,21 @@ func TestCrossAccountServiceResponseTypes(t *testing.T) {
 
 func TestAccountMapsUsers(t *testing.T) {
 	// Used for the nkey users to properly sign.
-	seed1 := "SUAPM67TC4RHQLKBX55NIQXSMATZDOZK6FNEOSS36CAYA7F7TY66LP4BOM"
-	seed2 := "SUAIS5JPX4X4GJ7EIIJEQ56DH2GWPYJRPWN5XJEDENJOZHCBLI7SEPUQDE"
+	seed1 := "59891d4cd167028c1d98d8645d9489efff9f8445332b96795bd8d67e59db80ba1b5a666aa4b863c8a97f11"
+	seed2 := "596b6170b8c79e83fa5a0d889d5f253001f2ad63fe086b708cc33cb1b9b423e257021bb61c8f67e85abb1c"
 
 	confFileName := createConfFile(t, []byte(`
     accounts {
       synadia {
         users = [
           {user: derek, password: foo},
-          {nkey: UCNGL4W5QX66CFX6A6DCBVDH5VOHMI7B2UZZU7TXAUQQSI2JPHULCKBR}
+          {nkey: "902b1593c5ca0d5c362793220d1303f165439f3306ad7863e832549a8f78504e7db2e51"}
         ]
       }
       nats {
         users = [
           {user: ivan, password: bar},
-          {nkey: UDPGQVFIWZ7Q5UH4I5E6DBCZULQS6VTVBG6CYBD7JV3G3N2GMQOMNAUH}
+          {nkey: "9022d5eb018f38f8b0a50007071ae6eb0296bdb33889d801392d9b4d25739ae9c1f35e8"}
         ]
       }
     }

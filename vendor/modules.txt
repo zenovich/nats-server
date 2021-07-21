@@ -1,12 +1,22 @@
-# github.com/golang/protobuf v1.4.2
-## explicit
+# github.com/btcsuite/btcd v0.20.1-beta
+github.com/btcsuite/btcd/btcec
+# github.com/ethereum/go-ethereum v1.10.5
+github.com/ethereum/go-ethereum/common
+github.com/ethereum/go-ethereum/common/hexutil
+github.com/ethereum/go-ethereum/common/math
+github.com/ethereum/go-ethereum/crypto
+github.com/ethereum/go-ethereum/crypto/secp256k1
+github.com/ethereum/go-ethereum/crypto/secp256k1/libsecp256k1/include
+github.com/ethereum/go-ethereum/crypto/secp256k1/libsecp256k1/src
+github.com/ethereum/go-ethereum/crypto/secp256k1/libsecp256k1/src/modules/recovery
+github.com/ethereum/go-ethereum/rlp
 # github.com/klauspost/compress v1.11.12
 ## explicit
 github.com/klauspost/compress/s2
 # github.com/minio/highwayhash v1.0.1
 ## explicit
 github.com/minio/highwayhash
-# github.com/nats-io/jwt/v2 v2.0.2
+# github.com/nats-io/jwt/v2 v2.0.2 => github.com/zenovich/jwt/v2 v2.0.3-0.20210721015402-a4143f233842
 ## explicit
 github.com/nats-io/jwt/v2
 # github.com/nats-io/nats.go v1.11.1-0.20210623165838-4b75fc59ae30
@@ -14,23 +24,24 @@ github.com/nats-io/jwt/v2
 github.com/nats-io/nats.go
 github.com/nats-io/nats.go/encoders/builtin
 github.com/nats-io/nats.go/util
-# github.com/nats-io/nkeys v0.3.0
+# github.com/nats-io/nkeys v0.3.0 => github.com/zenovich/nkeys v0.3.1-0.20210720235559-43e243885d59
 ## explicit
 github.com/nats-io/nkeys
 # github.com/nats-io/nuid v1.0.1
 ## explicit
 github.com/nats-io/nuid
+# golang.org/dl v0.0.0-20210713194856-38ddc79c2163
+## explicit
 # golang.org/x/crypto v0.0.0-20210616213533-5ff15b29337e
 ## explicit
 golang.org/x/crypto/bcrypt
 golang.org/x/crypto/blowfish
 golang.org/x/crypto/chacha20
 golang.org/x/crypto/chacha20poly1305
-golang.org/x/crypto/ed25519
-golang.org/x/crypto/ed25519/internal/edwards25519
 golang.org/x/crypto/internal/subtle
 golang.org/x/crypto/ocsp
 golang.org/x/crypto/poly1305
+golang.org/x/crypto/sha3
 # golang.org/x/sys v0.0.0-20210615035016-665e8c7367d1
 ## explicit
 golang.org/x/sys/cpu
@@ -41,6 +52,6 @@ golang.org/x/sys/windows/registry
 golang.org/x/sys/windows/svc
 golang.org/x/sys/windows/svc/eventlog
 golang.org/x/sys/windows/svc/mgr
-# golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1
+# golang.org/x/time v0.0.0-20201208040808-7e3f01d25324
 ## explicit
 golang.org/x/time/rate

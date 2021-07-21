@@ -34,10 +34,10 @@ const (
 
 // This matches ./configs/nkeys_jwts/test.seed
 // Test operator seed.
-var oSeed = []byte("SOAFYNORQLQFJYBYNUGC5D7SH2MXMUX5BFEWWGHN3EK4VGG5TPT5DZP7QU")
+var oSeed = []byte("5019176e88ca577064b5263277ee72bc0ce1600a37781710a9ac61f4e8acba3c436839944e07c03c10ea05")
 
 // This is a signing key seed.
-var skSeed = []byte("SOAEL3NFOTU6YK3DBTEKQYZ2C5IWSVZWWZCQDASBUOHJKBFLVANK27JMMQ")
+var skSeed = []byte("50e1083233b547d899ab85d981b5325837b0400125ee5510d9eced883f1d333a935f6f4161eed7890efac5")
 
 func checkKeys(t *testing.T, opts *server.Options, opc *jwt.OperatorClaims, expected int) {
 	// We should have filled in the TrustedKeys here.
@@ -290,7 +290,7 @@ func TestOperatorMemResolverPreload(t *testing.T) {
 	defer s.Shutdown()
 
 	// Make sure we can look up the account.
-	acc, _ := s.LookupAccount("ADM2CIIL3RWXBA6T2HW3FODNCQQOUJEHHQD6FKCPVAMHDNTTSMO73ROX")
+	acc, _ := s.LookupAccount("a025a080ca2236722c2477105e7447c3998155087639af1b926482cbf7a6221db93d7fb")
 	if acc == nil {
 		t.Fatalf("Expected to properly lookup account")
 	}
